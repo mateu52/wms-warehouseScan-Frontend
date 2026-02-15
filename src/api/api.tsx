@@ -65,5 +65,39 @@ export const addStockOut = async (productId: number, locationId: number, quantit
     });
     if (!res.ok) throw new Error("Removing stock failed");
 };
+export const addProduct = async (name: string, price: number) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const res = await fetch(`${BASE_URL}/Products`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ Name: name, Price: price, Unit: "szt" }) // tylko name i price
+    });
+
+    if (!res.ok) {
+        const text = await res.text(); // ¿eby zobaczyæ dok³adny b³¹d
+        throw new Error(`Adding product failed: ${text}`);
+    }
+};
+
+
+export const deleteProduct = async (id: number) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const res = await fetch(`${BASE_URL}/Products/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!res.ok) throw new Error("Deleting product failed");
+};
+
 
 
