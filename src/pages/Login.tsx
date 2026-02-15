@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import { login } from "../api/api";
 
 export default function Login({ onLogin }: { onLogin: () => void }) {
+    const [useDemo, setUseDemo] = useState(false);
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            await login(name, password);
-            onLogin();
-        } catch (err: any) {
-            setError(err.message);
-            setPassword("");
-        }
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (useDemo) {
+        // automatyczne logowanie do demo
+        localStorage.setItem("token", "demo-token");
+        onLogin();
+        return;
+      }
+
+      // zwyk³e logowanie
+      if (name === "demo" && password === "demo123") {
+        localStorage.setItem("token", "demo-token");
+        onLogin();
+      } else {
+        setError("Wrong username or password");
+      }
     };
+
 
     return (
   <div 
@@ -51,6 +61,7 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
         onChange={e => setName(e.target.value)}
         style={{ padding: "10px", borderRadius: "4px", border: "1px solid #ccc" }}
         autoComplete="username"
+        disabled={useDemo}
       />
 
       <input
@@ -60,6 +71,7 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
         onChange={e => setPassword(e.target.value)}
         style={{ padding: "10px", borderRadius: "4px", border: "1px solid #ccc" }}
         autoComplete="current-password"
+        disabled={useDemo}
       />
 
       <button
@@ -76,6 +88,14 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
       >
         Login
       </button>
+      <label style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <input
+            type="checkbox"
+            checked={useDemo}
+            onChange={e => setUseDemo(e.target.checked)}
+          />
+          Use demo account
+        </label>
 
       {error && <p style={{ color: 'red', textAlign: "center" }}>{error}</p>}
     </form>
