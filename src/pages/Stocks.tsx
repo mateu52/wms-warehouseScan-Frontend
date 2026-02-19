@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getStocks, addStockIn, addStockOut, getProducts, getLocations } from "../api/api";
 import { StockSummary } from "../types/Stock";
-import { Product } from "../types/Product";
-import { Location } from "../types/Location";
+import type { Product } from "../types/Product";
+import type { Location } from "../types/Location";
 
 export default function Stocks() {
     const [stocks, setStocks] = useState<StockSummary[]>([]);

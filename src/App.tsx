@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Locations from "./pages/Locations";

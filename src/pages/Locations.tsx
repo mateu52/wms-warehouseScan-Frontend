@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getLocations } from "../api/api";
-import { Location } from "../types/Location";
+import type { Location } from "../types/Location";
 
 export default function Locations() {
     const [locations, setLocations] = useState<Location[]>([]);

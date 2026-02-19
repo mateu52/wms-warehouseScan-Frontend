@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { login } from "../api/api";
+import { useState } from "react";
 
 export default function Login({ onLogin }: { onLogin: () => void }) {
     const [useDemo, setUseDemo] = useState(false);
