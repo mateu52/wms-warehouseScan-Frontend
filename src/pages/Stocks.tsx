@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStocks, addStockIn, addStockOut, getProducts, getLocations } from "../api/api";
-import { StockSummary } from "../types/Stock";
+import type { StockSummary } from "../types/Stock";
 import type { Product } from "../types/Product";
 import type { Location } from "../types/Location";
 
