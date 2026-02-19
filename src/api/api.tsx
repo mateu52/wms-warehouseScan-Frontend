@@ -1,4 +1,4 @@
-const BASE_URL = "https://wms-warehousescan.onrender.com";
+const BASE_URL = "https://wms-warehousescan.onrender.com/api";
 
 const getToken = () => {
     const token = localStorage.getItem("token");
